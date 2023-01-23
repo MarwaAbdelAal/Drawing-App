@@ -43,3 +43,21 @@ input{
     background-color: rgba(46, 73, 63, 0.726);
     border: none;
 }
+@media screen and (max-width: 840px){
+    *{
+        font-size: 13px;
+    }
+    canvas{
+        width: 100%;
+    }
+    .fillStyle, .strokeStyle, .lineWidth{
+        height: 10%;
+        padding: 0;
+    }
+    .icons>i{
+        font-size: 30px;
+    }
+    .lineWidth>input{
+        font-size: 15px;
+    }    
+}
