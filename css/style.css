@@ -15,17 +15,26 @@ body{
     align-items: center;
     text-align: center;
 }
-.fillStyle, .strokeStyle{
+.fillStyle, .strokeStyle, .lineWidth{
     height: 15%;
-    padding: 100px 50px;
+    padding: 50px 50px;
 }
-.fillStyle>h2, .strokeStyle>h2{
+.fillStyle>h2, .strokeStyle>h2, .lineWidth>h2{
     text-shadow: 0 3px 5px #fff;
+}
+.lineWidth>input{
+    width: 20%;
+    height: 80%;
+    font-size: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: rgba(111, 170, 153, 0.5);
+    text-align: center;
 }
 .icons>i{
     width: 15%;
     height: 15%;
-    padding: 10px;
+    padding: 10px 10px 20px;
     cursor: pointer;
     text-shadow: 0 3px 5px rgba(255, 255, 255, 0.5);    
 }
