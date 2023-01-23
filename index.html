@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="strokeFill">
+            <div class="fillStyle">
+                <h2>Fill Style</h2>
+                <br>
+                <input type="color" id="fill">
+            </div>
+            <div class="strokeStyle">
+                <h2>Stroke Style</h2>
+                <br>
+                <input type="color" id="stroke">
+            </div>
+        </div>
+        <div class="drawBoard">
+            <div class="icons">
+                <i class="pen fa-solid fa-4x fa-pen"></i>
+                <i class="line fa-solid fa-4x fa-slash"></i>
+                <i class="square fas fa-4x fa-square-full"></i>
+                <i class="circle fas fa-4x fa-circle"></i>
+                <i class="eraser fa-solid fa-4x fa-eraser"></i>
+            </div>
+            <canvas id="cvs" width="900px" height="600px" style="border: 3px solid #000000; background-color: white;"></canvas>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>

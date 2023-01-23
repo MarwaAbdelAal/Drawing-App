@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    color: rgb(3, 35, 36);
+    background-color: rgba(46, 73, 63, 0.726);
+    font-family: cursive;
+}
+.container{
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.fillStyle, .strokeStyle{
+    height: 15%;
+    padding: 100px 50px;
+}
+.fillStyle>h2, .strokeStyle>h2{
+    text-shadow: 0 3px 5px #fff;
+}
+.icons>i{
+    width: 15%;
+    height: 15%;
+    padding: 10px;
+    cursor: pointer;
+    text-shadow: 0 3px 5px rgba(255, 255, 255, 0.5);    
+}
+input{
+    cursor: pointer;
+    background-color: rgba(46, 73, 63, 0.726);
+    border: none;
+}
