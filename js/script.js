@@ -23,62 +23,29 @@ lineInput.addEventListener('change', () => strokeWidth = lineInput.value);
 let mode = 'line';
 let fillColor = 'white';
 let strokeColor = 'black';
-let strokeWidth = '2'; ////////////// need input for it
+let strokeWidth = '2';
 
 let drawFlag = false;
 let startPoint = { x: 0, y: 0 }; //start point
 let endPoint = { x: 0, y: 0 }; //end point
 
 canvas.addEventListener('mousedown', (e) => {
-    if (mode == 'line') {
-        ctx.beginPath();
-        startPoint.x = e.offsetX;
-        startPoint.y = e.offsetY;
+    ctx.beginPath();
+    startPoint.x = e.offsetX;
+    startPoint.y = e.offsetY;
+    if (mode == 'line' || mode == 'freehand' || mode == 'erase') {
         ctx.moveTo(startPoint.x, startPoint.y);
-    }
-    else if (mode == 'freehand') {
-        ctx.beginPath();
-        startPoint.x = e.offsetX;
-        startPoint.y = e.offsetY;
-        ctx.moveTo(startPoint.x, startPoint.y);
-        drawFlag = true;
-    }
-    else if (mode == 'square') {
-        ctx.beginPath();
-        startPoint.x = e.offsetX;
-        startPoint.y = e.offsetY;
-    }
-    else if (mode == 'circle') {
-        ctx.beginPath();
-        startPoint.x = e.offsetX;
-        startPoint.y = e.offsetY;
-    }
-    else if (mode == 'erase') {
-        ctx.beginPath();
-        startPoint.x = e.offsetX;
-        startPoint.y = e.offsetY;
-        ctx.moveTo(startPoint.x, startPoint.y);
-        drawFlag = true;
+        if(mode != 'line'){ drawFlag = true; }
     }
 });
 
 canvas.addEventListener('mousemove', (e) => {
-    if (mode == 'freehand') {
+    if (mode == 'freehand' || mode == 'erase') {
         if (drawFlag) {
             endPoint.x = e.offsetX;
             endPoint.y = e.offsetY;
             ctx.lineTo(endPoint.x, endPoint.y);
-            ctx.strokeStyle = strokeColor;
-            ctx.lineWidth = strokeWidth;
-            ctx.stroke();
-        }
-    }
-    if (mode == 'erase') {
-        if (drawFlag) {
-            endPoint.x = e.offsetX;
-            endPoint.y = e.offsetY;
-            ctx.lineTo(endPoint.x, endPoint.y);
-            ctx.strokeStyle = 'white';
+            ctx.strokeStyle = mode == 'erase' ? 'white' : strokeColor;
             ctx.lineWidth = strokeWidth;
             ctx.stroke();
         }
@@ -86,51 +53,33 @@ canvas.addEventListener('mousemove', (e) => {
 });
 
 canvas.addEventListener('mouseup', (e) => {
-    if (mode == 'line') {
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.lineWidth = strokeWidth;
-        ctx.strokeStyle = strokeColor;
-        ctx.stroke();
-    } 
-    else if (mode == 'freehand') {
+    if (mode == 'freehand' || mode == 'erase') {
         drawFlag = false;
     }
-    else if (mode == 'square') {
+    else if (mode == 'line' || mode == 'square' || mode == 'circle') {
         endPoint.x = e.offsetX;
         endPoint.y = e.offsetY;
-        ctx.rect(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+        
+        if (mode == 'line') {
+            ctx.lineTo(endPoint.x, endPoint.y);
+        }
+        else if(mode == 'square'){
+            ctx.rect(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+            ctx.fillStyle = fillColor;
+            ctx.fillRect(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+        }
+        else{
+            let rad = getDistance(startPoint.x, startPoint.y, endPoint.x, endPoint.y)
+            ctx.arc(startPoint.x, startPoint.y, rad, 0, 2 * Math.PI);  //(x,y,rad,start angle,end angle)
+            ctx.fillStyle = fillColor;
+            ctx.fill();    
+        }
+        
         ctx.lineWidth = strokeWidth;
         ctx.strokeStyle = strokeColor;
         ctx.stroke();
-        ctx.fillStyle = fillColor;
-        ctx.fillRect(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
-    }
-    else if (mode == 'circle') {
-        endPoint.x = e.offsetX;
-        endPoint.y = e.offsetY;
-        let rad = getDistance(startPoint.x, startPoint.y, endPoint.x, endPoint.y)
-        ctx.arc(startPoint.x, startPoint.y, rad, 0, 2 * Math.PI);  //(x,y,rad,start angle,end angle)
-        ctx.lineWidth = strokeWidth;
-        ctx.strokeStyle = strokeColor;
-        ctx.stroke();
-        ctx.fillStyle = fillColor;
-        ctx.fill();
-    }
-    else if (mode == 'erase') {
-        drawFlag = false;
     }
 });
-
-function drawSquare() {
-    console.log('draw square');
-    ctx.beginPath()
-    ctx.rect(0,0,150,75)  //(x,y,width,height)
-    ctx.lineWidth = strokeWidth;
-    ctx.strokeStyle=strokeColor;
-    ctx.stroke()
-    ctx.fillStyle=fillColor;
-    ctx.fillRect(0,0,150,75)
-}
 
 function getDistance(x1, y1, x2, y2){
     let y = x2 - x1;
